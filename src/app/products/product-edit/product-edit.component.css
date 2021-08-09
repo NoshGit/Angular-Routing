@@ -53,9 +53,9 @@
 
     /* Rounds the corners */
 .wizard a:first-child {
-    -webkit-border-radius: 8px 0 0 0px;
-    -moz-border-radius: 8px 0 0 0px;
-    border-radius: 8px 0 0 0px;
+    -webkit-border-radius: 8px 0 0 8px;
+    -moz-border-radius: 8px 0 0 8px;
+    border-radius: 8px 0 0 8px;
 }
 
 .wizard a:last-child {

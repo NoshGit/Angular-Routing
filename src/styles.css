@@ -13,3 +13,7 @@ div.card {
 .table {
   margin-top: 10px
 }
+
+button[disabled]{
+  cursor: not-allowed;
+}
