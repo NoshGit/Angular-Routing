@@ -5,6 +5,7 @@ import { MessageService } from '../../messages/message.service';
 
 import { Product, ProductResolved } from '../product';
 import { ProductService } from '../product.service';
+import * as _  from 'lodash';
 
 @Component({
   templateUrl: './product-edit.component.html',
@@ -14,9 +15,27 @@ export class ProductEditComponent implements OnInit {
   pageTitle = 'Product Edit';
   errorMessage: string;
 
-  product: Product;
+  //product: Product;
+
+  get isDirty(): boolean{
+
+    return !_.isEqual(this.currentProduct, this.originalProduct);
+
+  }
 
   private dataIsValid: { [Key:string]: boolean} = {};
+  private currentProduct: Product;
+  private originalProduct: Product;
+
+  get product(): Product {
+    return this.currentProduct
+  }
+
+  set product(value: Product) {
+    this.currentProduct = value;
+    //clone the object to retain copy
+    this.originalProduct = { ...value };
+  }
 
   constructor(private productService: ProductService,
               private messageService: MessageService,
@@ -99,10 +118,18 @@ export class ProductEditComponent implements OnInit {
     }
   }
 
+  reset(): void {
+    this.dataIsValid = null;
+    this.currentProduct = null;
+    this.originalProduct = null;
+  }
+
   onSaveComplete(message?: string): void {
     if (message) {
       this.messageService.addMessage(message);
     }
+
+    this.reset();
 
     // Navigate back to the product list
     this.router.navigate(['/products']);
